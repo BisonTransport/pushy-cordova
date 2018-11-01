@@ -18,11 +18,14 @@ public class PushReceiver extends BroadcastReceiver {
         // Notification title and text
         String notificationTitle = getAppName(context);
         String notificationText = "";
+        int notId = 1;
 
         // Attempt to extract the notification text from the "message" property of the data payload
         if (intent.getStringExtra("message") != null) {
             notificationText = intent.getStringExtra("message");
         }
+
+        notId = intent.getIntExtra("notId",1);
 
         // Prepare a notification with vibration and sound
         Notification.Builder builder = new Notification.Builder(context)
@@ -41,7 +44,7 @@ public class PushReceiver extends BroadcastReceiver {
         Pushy.setNotificationChannel(builder, context);
 
         // Build the notification and display it
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(notId, builder.build());
     }
 
     private int getNotificationIcon(Context context) {
