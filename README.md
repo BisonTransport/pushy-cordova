@@ -7,6 +7,8 @@ The official [Pushy SDK](https://pushy.me/) for [Cordova](https://cordova.apache
 
 ## Usage
 
+cordova plugin add https://github.com/BisonTransport/pushy-cordova.git
+
 Please refer to our [detailed documentation](https://pushy.me/docs/additional-platforms/cordova) to get started.
 
 ## License
