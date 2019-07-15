@@ -8,6 +8,8 @@
 
 @objc(PushyPlugin) class PushyPlugin : CDVPlugin {
     var pushy: Pushy?
+    var hasStartupNotification = false
+    var startupNotification: [AnyHashable : Any]?
     
     func getPushyInstance() -> Pushy {
         // Pushy instance singleton
@@ -16,6 +18,23 @@
         }
         
         return pushy!
+    }
+
+    // Runs after execution of AppDelegate.didFinishLaunchingWithOptions()
+    override func pluginInitialize () {
+        // Listen for startup notifications
+        getPushyInstance().setNotificationHandler({ (data, completionHandler) in
+            // Print notification payload data
+            print("Received notification: \(data)")
+            
+            // Store for later
+            self.startupNotification = data
+            self.hasStartupNotification = true
+            
+            // You must call this completion handler when you finish processing
+            // the notification (after fetching background data, if applicable)
+            completionHandler(UIBackgroundFetchResult.newData)
+        })
     }
     
     @objc(register:)
@@ -85,6 +104,12 @@
             // Call the completion handler immediately on behalf of the app
             completionHandler(UIBackgroundFetchResult.newData)
         })
+        
+        // Check for startup notification if set
+        if self.hasStartupNotification {
+            // Execute notification handler (pass in startup notification payload)
+            getPushyInstance().getNotificationHandler()?(self.startupNotification!, {(UIBackgroundFetchResult) in})
+        }
     }
     
     @objc(subscribe:)
