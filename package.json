@@ -24,11 +24,6 @@
       "android"
     ]
   },
-  "scripts": {
-      "addPlugin": "cordova plugin add https://github.com/BisonTransport/pushy-cordova.git",
-      "addReceiver": "cordova plugin add ./plugins/pushy-cordova/receiver/",
-      "postinstall": "npm run addReceiver"
-    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pushy-me/pushy-cordova.git"
