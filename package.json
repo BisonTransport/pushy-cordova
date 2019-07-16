@@ -27,7 +27,7 @@
   "scripts": {
       "addPlugin": "cordova plugin add https://github.com/BisonTransport/pushy-cordova.git",
       "addReceiver": "cordova plugin add ./plugins/pushy-cordova/receiver/",
-      "postinstall1": "npm run addPlugin && npm run addReceiver"
+      "postinstall": "npm run addPlugin && npm run addReceiver"
     },
   "repository": {
     "type": "git",
