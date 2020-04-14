@@ -39,6 +39,17 @@ var actions = [
         platforms: ['android', 'ios']
     },
     {
+        name: 'setNotificationClickListener',
+        noError: true,
+        platforms: ['android', 'ios']
+    },
+    {
+        name: 'clearBadge',
+        noError: true,
+        noCallback: true,
+        platforms: ['ios']
+    },
+    {
         name: 'setEnterpriseConfig',
         noError: true,
         noCallback: true,
