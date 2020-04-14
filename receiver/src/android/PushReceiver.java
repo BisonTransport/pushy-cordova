@@ -17,6 +17,7 @@ public class PushReceiver extends BroadcastReceiver {
         // Notification title and text
         String notificationTitle = getAppName(context);
         String notificationText = "";
+        String notificationUrl = "";
         int notId = 1;
 
         // Attempt to extract the notification text from the "message" property of the data payload
@@ -40,6 +41,14 @@ public class PushReceiver extends BroadcastReceiver {
                 .setSmallIcon(getNotificationIcon(context))
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(getMainActivityPendingIntent(context));
+
+        //Attempt to extract the notification url
+        if(intent.getStringExtra("url") != null) {
+            notificationUrl = intent.getStringExtra("url");
+            Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notificationUrl));
+            PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+            builder.setContentIntent(contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
         // Get an instance of the NotificationManager service
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
