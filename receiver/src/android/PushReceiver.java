@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.net.Uri;
 
 import me.pushy.sdk.cordova.internal.config.PushyIntentExtras;
 import me.pushy.sdk.cordova.internal.util.PushyPersistence;
