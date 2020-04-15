@@ -44,6 +44,12 @@ public class PushReceiver extends BroadcastReceiver {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(getMainActivityPendingIntent(context, intent));
 
+        // Get an instance of the NotificationManager service
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+
+        // Automatically configure a Notification Channel for devices running Android O+
+        Pushy.setNotificationChannel(builder, context);
+
         //Attempt to extract the notification url
         if(intent.getStringExtra("url") != null) {
             notificationUrl = intent.getStringExtra("url");
@@ -51,12 +57,6 @@ public class PushReceiver extends BroadcastReceiver {
             PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
             builder.setContentIntent(contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
-
-        // Get an instance of the NotificationManager service
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-
-        // Automatically configure a Notification Channel for devices running Android O+
-        Pushy.setNotificationChannel(builder, context);
 
         // Build the notification and display it
         notificationManager.notify(notId, builder.build());
