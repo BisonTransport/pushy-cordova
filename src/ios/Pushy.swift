@@ -33,6 +33,14 @@ public class Pushy : NSObject {
     
     // Define a notification handler to invoke when device receives a notification
     public func setNotificationHandler(_ notificationHandler: @escaping ([AnyHashable : Any], @escaping ((UIBackgroundFetchResult) -> Void)) -> Void) {
+        if let url = data["url"] as ? String {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+            return
+        }
         // Save the handler for later
         self.notificationHandler = notificationHandler
 
